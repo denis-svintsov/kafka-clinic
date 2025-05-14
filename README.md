@@ -44,7 +44,7 @@ curl -X POST http://localhost:8080/api/appointment/add -H "Content-Type: applica
 - Ожидаемый ответ:
 "Сообщение отправлено в топик."
 
-#### Подтвердить запись запись
+#### Отметить запись, как посещенную
 
 curl http://localhost:8080/api/appointment/isVisited?id=1
 
