@@ -2,20 +2,19 @@
 
 ### 1. Клонирование
 
-git clone https://github.com/denis-svintsov/kafka-clinic  
-cd kafka-clinic
+- git clone https://github.com/denis-svintsov/kafka-clinic  
+- cd kafka-clinic
 
 ### 2. Запуск
 
-Соберите и запустите:
-
+- Соберите и запустите:
 docker-compose up --build
 
 ### 3. Запросы к API
 
 #### Создать пациента
 
-curl -X POST http://localhost:8080/api/client/add -H "Content-Type: application/json" -d '{
+- curl -X POST http://localhost:8080/api/client/add -H "Content-Type: application/json" -d '{
 "phone": "+7-900-123-4567",
 "surname": "Иванов",
 "name": "Иван",
@@ -30,7 +29,7 @@ curl -X POST http://localhost:8080/api/client/add -H "Content-Type: application/
 
 #### Создать запись
 
-curl -X POST http://localhost:8080/api/appointment/add -H "Content-Type: application/json" -d '{
+- curl -X POST http://localhost:8080/api/appointment/add -H "Content-Type: application/json" -d '{
   "appointmentDate": "2025-05-14T14:30:00",
   "doctor": "Петров Петр Петрович",
   "notes": "Головные боли",
@@ -46,7 +45,7 @@ curl -X POST http://localhost:8080/api/appointment/add -H "Content-Type: applica
 
 #### Отметить запись, как посещенную
 
-curl http://localhost:8080/api/appointment/isVisited?id=1
+- curl http://localhost:8080/api/appointment/isVisited?id=1
 
 - Ожидаемый ответ:
 "Сообщение отправлено в топик."
@@ -54,7 +53,7 @@ curl http://localhost:8080/api/appointment/isVisited?id=1
 
 #### Поиск клиентов с записями
 
-curl http://localhost:8080/api/report/getRecordsForClient?phone=+7-900-123-4567
+- curl http://localhost:8080/api/report/getRecordsForClient?phone=+7-900-123-4567
 
 
 - Ожидаемый ответ:
@@ -84,7 +83,7 @@ curl http://localhost:8080/api/report/getRecordsForClient?phone=+7-900-123-4567
 
 #### Отчет: Все запланированные записи
 
-curl http://localhost:8080/api/report/getCountPlannedRecords
+- curl http://localhost:8080/api/report/getCountPlannedRecords
 
 
 - Ожидаемый ответ:
@@ -94,7 +93,7 @@ curl http://localhost:8080/api/report/getCountPlannedRecords
 #### Отчет: Сумма потраченная клиентами за предыдущий месяц
 
 
-curl http://localhost:8080/api/report/getAmountByMonth
+- curl http://localhost:8080/api/report/getAmountByMonth
 
 
 - Ожидаемый ответ:
@@ -103,7 +102,7 @@ curl http://localhost:8080/api/report/getAmountByMonth
 
 #### Отчет: Сумма потраченная клиентом за все время
 
-curl http://localhost:8080/api/report/getAmountByClient?phone=+7-900-123-4567
+- curl http://localhost:8080/api/report/getAmountByClient?phone=+7-900-123-4567
 
 - Ожидаемый ответ:
 "3499.0"
@@ -112,3 +111,9 @@ curl http://localhost:8080/api/report/getAmountByClient?phone=+7-900-123-4567
 ### 4. Остановка
 
 docker-compose down
+
+### 5. Примечания
+
+- Топики Kafka: client-topic, appointment-topic.
+- Проверить топики:
+  docker exec -it kafka-clinic-kafka-1 kafka-topics --bootstrap-server localhost:9092 --list
