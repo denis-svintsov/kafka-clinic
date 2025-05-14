@@ -2,7 +2,7 @@
 
 ### 1. Клонирование
 
-git clone https://github.com/denis-svintsov/kafka-clinic
+git clone https://github.com/denis-svintsov/kafka-clinic  
 cd kafka-clinic
 
 ### 2. Запуск
