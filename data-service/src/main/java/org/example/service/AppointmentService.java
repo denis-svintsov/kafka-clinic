@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.Appointment;
 import org.example.entity.AppointmentEntity;
 import org.example.entity.ClientEntity;
+import org.example.exception.NoSuchAppointmentException;
 import org.example.exception.NoSuchClientException;
 import org.example.mapper.AppointmentMapper;
 import org.example.repository.AppointmentRepository;
@@ -17,9 +18,13 @@ public class AppointmentService {
     private final AppointmentMapper appointmentMapper;
 
     public AppointmentEntity add(Appointment appointment) {
-        appointment.setVisited(false);
         return appointmentRepository.save(appointmentMapper.mapToEntity(appointment));
     }
 
+    public Appointment findById(Long id) {
+        return appointmentMapper.mapToDto(appointmentRepository.findById(id).orElseThrow(
+                () ->  new NoSuchAppointmentException("Не найдена запись с таким id.")
+        ));
+    }
 
 }
