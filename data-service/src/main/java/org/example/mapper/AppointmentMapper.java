@@ -18,6 +18,9 @@ public class AppointmentMapper {
         AppointmentEntity appointmentEntity = new AppointmentEntity();
         ClientEntity client = clientRepository.findById(appointment.getClientPhone())
                 .orElseThrow(() -> new NoSuchClientException("Нет клиента с таким номером телефона."));
+        if (appointment.getId() != null) {
+            appointmentEntity.setId(appointment.getId());
+        }
         appointmentEntity.setClient(client);
         appointmentEntity.setServices(appointment.getServices());
         appointmentEntity.setAppointmentDate(appointment.getAppointmentDate());
@@ -39,6 +42,7 @@ public class AppointmentMapper {
         appointment.setComplaints(appointmentEntity.getComplaints());
         appointment.setVisited(appointmentEntity.isVisited());
         appointment.setAmount(appointmentEntity.getAmount());
+        appointment.setClientPhone(appointmentEntity.getClient().getPhone());
 
         return appointment;
     }

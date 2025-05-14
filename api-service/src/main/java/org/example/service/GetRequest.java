@@ -1,6 +1,7 @@
 package org.example.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.dto.Appointment;
 import org.example.dto.Client;
 import org.example.exception.HttpResponseException;
 import org.springframework.http.HttpStatusCode;
@@ -82,6 +83,20 @@ public class GetRequest {
                                 .map(body -> new HttpResponseException("Ошибка сервиса: " + body))
                 )
                 .bodyToMono(Long.class)
+                .block();
+    }
+
+    public Appointment getRecordById(Long id) {
+        String url = "http://data-service:8081/api/appointment/getRecordById?id=" + id;
+
+        return webClient.get()
+                .uri(url)
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, clientResponse ->
+                        clientResponse.bodyToMono(String.class)
+                                .map(body -> new HttpResponseException("Ошибка сервиса: " + body))
+                )
+                .bodyToMono(Appointment.class)
                 .block();
     }
 }
