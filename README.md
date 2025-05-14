@@ -31,14 +31,22 @@ curl -X POST http://localhost:8080/api/client/add -H "Content-Type: application/
 #### Создать запись
 
 curl -X POST http://localhost:8080/api/appointment/add -H "Content-Type: application/json" -d '{
-"appointmentDate": "2025-05-14T14:30:00",
-"doctor": "Петров Петр Петрович",
-"notes": "Головные боли",
-"services": "Консультация, МРТ позвоночника",
-"complaints": "Головная боль",
-"visited": false,
-"clientPhone": "+7-900-123-4567"
+  "appointmentDate": "2025-05-14T14:30:00",
+  "doctor": "Петров Петр Петрович",
+  "notes": "Головные боли",
+  "services": "Консультация, МРТ головного мозга",
+  "complaints": "Головная боль",
+  "visited": false,
+  "amount": 3499,
+  "clientPhone": "+7-900-123-4567"
 }'
+
+- Ожидаемый ответ:
+"Сообщение отправлено в топик."
+
+#### Подтвердить запись запись
+
+curl http://localhost:8080/api/appointment/isVisited?id=1
 
 - Ожидаемый ответ:
 "Сообщение отправлено в топик."
@@ -51,15 +59,26 @@ curl http://localhost:8080/api/report/getRecordsForClient?phone=+7-900-123-4567
 
 - Ожидаемый ответ:
 {
-"phone": "+7-900-123-4567",
-"surname": "Иванов",
-"name": "Иван",
-"patronymic": "Иванович",
-"age": 30,
-"address": "г. Москва, ул. Пушкина, д. 10",
-"email": "ivan.ivanov@example.com",
-"appointments": [
-{ "appointmentDate": "2025-05-14T14:30:00", "doctor": "Петров Петр Петрович", "notes": "Головные боли", "services": "Консультация, МРТ позвоночника", "complaints": "Головная боль", "visited": false, "clientPhone": "+7-900-123-4567" }]
+    "phone": "+7-900-123-4567",
+    "surname": "Иванов",
+    "name": "Иван",
+    "patronymic": "Иванович",
+    "age": 30,
+    "address": "г. Москва, ул. Пушкина, д. 10",
+    "email": "ivan.ivanov@example.com",
+    "appointments": [
+        {
+            "id": 7,
+            "appointmentDate": "2025-05-14T14:30:00",
+            "doctor": "Петров Петр Петрович",
+            "notes": "Головные боли",
+            "services": "Консультация, МРТ головного мозга",
+            "complaints": "Головная боль",
+            "visited": false,
+            "amount": 3499.0,
+            "clientPhone": "+7-900-123-4567"
+        }
+    ]
 }
 
 
@@ -87,7 +106,7 @@ curl http://localhost:8080/api/report/getAmountByMonth
 curl http://localhost:8080/api/report/getAmountByClient?phone=+7-900-123-4567
 
 - Ожидаемый ответ:
-"0"
+"3499.0"
 
 
 ### 4. Остановка
