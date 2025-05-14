@@ -58,7 +58,8 @@ curl http://localhost:8080/api/report/getRecordsForClient?phone=+7-900-123-4567
 "age": 30,
 "address": "г. Москва, ул. Пушкина, д. 10",
 "email": "ivan.ivanov@example.com",
-"appointments": []
+"appointments": [
+{ "appointmentDate": "2025-05-14T14:30:00", "doctor": "Петров Петр Петрович", "notes": "Головные боли", "services": "Консультация, МРТ позвоночника", "complaints": "Головная боль", "visited": false, "clientPhone": "+7-900-123-4567" }]
 }
 
 
