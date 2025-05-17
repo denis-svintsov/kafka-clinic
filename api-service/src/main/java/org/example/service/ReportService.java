@@ -10,31 +10,31 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ReportService {
 
-    private final GetRequest getRequest;
+    private final SenderGetRequest senderGetRequest;
 
     public Client getRecordsForClient(String phone) {
         if (phone != null && !phone.isEmpty() && phone.charAt(0) == ' ') {
             phone = "+" + phone.substring(1);
         }
-        return getRequest.getRecordsForClient(phone);
+        return senderGetRequest.getRecordsForClient(phone);
     }
 
     public Double getAmountByMonth() {
-        return getRequest.getAmountByMonth();
+        return senderGetRequest.getAmountByMonth();
     }
 
     public Double getAmountByClient(String phone) {
         if (phone != null && !phone.isEmpty() && phone.charAt(0) == ' ') {
             phone = "+" + phone.substring(1);
         }
-        return getRequest.getAmountByClient(phone);
+        return senderGetRequest.getAmountByClient(phone);
     }
 
     public long getCountPlannedRecords() {
-        return getRequest.getCountPlannedRecords();
+        return senderGetRequest.getCountPlannedRecords();
     }
 
     public long getVisitedRecordsByDate(LocalDateTime start, LocalDateTime end) {
-        return getRequest.getVisitedRecordsByDate(start, end);
+        return senderGetRequest.getVisitedRecordsByDate(start, end);
     }
 }

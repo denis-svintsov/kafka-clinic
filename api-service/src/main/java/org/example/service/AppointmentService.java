@@ -2,27 +2,24 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.Appointment;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.example.kafka.AppointmentKafkaProducer;
+import org.example.kafka.ClientKafkaProducer;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
-    private final GetRequest getRequest;
-    private final KafkaTemplate<String, Appointment> kafkaTemplate;
+    private final SenderGetRequest senderGetRequest;
+    private final AppointmentKafkaProducer kafkaProducer;
 
     public void add(Appointment appointment) {
-        String key = UUID.randomUUID().toString();
         appointment.setVisited(false);
-        kafkaTemplate.send("appointment-topic", key, appointment);
+        kafkaProducer.send("appointment-topic", appointment);
     }
 
     public void setVisited(Long id) {
-        Appointment appointment = getRequest.getRecordById(id);
+        Appointment appointment = senderGetRequest.getRecordById(id);
         appointment.setVisited(true);
-        String key = UUID.randomUUID().toString();
-        kafkaTemplate.send("appointment-topic", key, appointment);
+        kafkaProducer.send("appointment-topic", appointment);
     }
 }

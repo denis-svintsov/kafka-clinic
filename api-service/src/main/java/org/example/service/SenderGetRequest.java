@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class GetRequest {
+public class SenderGetRequest {
     private final WebClient webClient;
 
     public Client getRecordsForClient(String phone) {

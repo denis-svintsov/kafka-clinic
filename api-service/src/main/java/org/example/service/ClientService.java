@@ -2,18 +2,15 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.Client;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.example.kafka.ClientKafkaProducer;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ClientService {
-    private final KafkaTemplate<String, Client> kafkaTemplate;
+    private final ClientKafkaProducer clientKafkaProducer;
 
     public void add(Client client) {
-        String key = UUID.randomUUID().toString();
-        kafkaTemplate.send("client-topic", key, client);
+        clientKafkaProducer.send("client-topic", client);
     }
 }
