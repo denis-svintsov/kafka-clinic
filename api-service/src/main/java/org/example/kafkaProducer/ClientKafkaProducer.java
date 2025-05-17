@@ -1,4 +1,4 @@
-package org.example.kafka;
+package org.example.kafkaProducer;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.Client;

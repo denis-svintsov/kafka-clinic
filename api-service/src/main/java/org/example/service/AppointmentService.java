@@ -2,8 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.Appointment;
-import org.example.kafka.AppointmentKafkaProducer;
-import org.example.kafka.ClientKafkaProducer;
+import org.example.kafkaProducer.AppointmentKafkaProducer;
 import org.springframework.stereotype.Service;
 
 @Service
