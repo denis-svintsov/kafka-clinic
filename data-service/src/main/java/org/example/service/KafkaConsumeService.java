@@ -33,4 +33,15 @@ public class KafkaConsumeService {
         appointmentService.add(appointment);
         System.out.println("Added to database");
     }
+
+    @KafkaListener(
+            topics = "appointment-confirm-topic",
+            groupId = "appointment-confirm-consumer-group",
+            containerFactory = "appointmentKafkaListenerContainerFactory"
+    )
+    public void listenConfirmAppointment(Long id) {
+        System.out.println("Received id: " + id);
+        appointmentService.confirm(id);
+        System.out.println("Appointment confirmed.");
+    }
 }
