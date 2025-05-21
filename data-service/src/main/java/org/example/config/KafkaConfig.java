@@ -59,5 +59,24 @@ public class KafkaConfig {
         return factory;
     }
 
+    @Bean
+    public ConsumerFactory<String, Long> appointmentConfirmConsumerFactory() {
+        JsonDeserializer<Long> deserializer = new JsonDeserializer<>(Long.class);
+        deserializer.addTrustedPackages("*");
+
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "appointment-consumer-group");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Long> appointmentConfirmKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Long> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(appointmentConfirmConsumerFactory());
+        return factory;
+    }
 
 }

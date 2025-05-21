@@ -3,6 +3,7 @@ package org.example.service;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.Appointment;
 import org.example.kafkaProducer.AppointmentKafkaProducer;
+import org.example.kafkaProducer.ConfirmAppointmentKafkaProducer;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class AppointmentService {
     private final SenderGetRequest senderGetRequest;
     private final AppointmentKafkaProducer kafkaProducer;
+    private final ConfirmAppointmentKafkaProducer confirmAppointmentKafkaProducer;
 
     public void add(Appointment appointment) {
         appointment.setVisited(false);
@@ -17,8 +19,6 @@ public class AppointmentService {
     }
 
     public void setVisited(Long id) {
-        Appointment appointment = senderGetRequest.getRecordById(id);
-        appointment.setVisited(true);
-        kafkaProducer.send("appointment-topic", appointment);
+        confirmAppointmentKafkaProducer.send("appointment-confirm-topic", id);
     }
 }

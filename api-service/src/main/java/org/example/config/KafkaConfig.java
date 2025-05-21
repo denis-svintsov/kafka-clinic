@@ -37,6 +37,16 @@ public class KafkaConfig {
         return new KafkaTemplate<>(orderProducerFactory());
     }
 
+    @Bean
+    public ProducerFactory<String, Long> confirmProducerFactory() {
+        return new DefaultKafkaProducerFactory<>(commonConfigs());
+    }
+
+    @Bean
+    public KafkaTemplate<String, Long> confirmKafkaTemplate() {
+        return new KafkaTemplate<>(confirmProducerFactory());
+    }
+
     private Map<String, Object> commonConfigs() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");

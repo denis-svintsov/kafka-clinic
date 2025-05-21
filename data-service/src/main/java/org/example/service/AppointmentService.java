@@ -27,4 +27,8 @@ public class AppointmentService {
         ));
     }
 
+    public boolean confirm(Long id) {
+        return appointmentRepository.confirmAppointment(id) > 0;
+    }
+
 }
